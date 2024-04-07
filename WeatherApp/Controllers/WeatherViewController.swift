@@ -36,7 +36,9 @@ final class WeatherViewController: UIViewController {
     
     private func setUpLocation() {
         LocationManager.shared.getCurrentLocation { loc in
-            WeatherManager.shared.getWeather(for: loc)
+            WeatherManager.shared.getWeather(for: loc) {
+                
+            }
         }
     }
 }
