@@ -30,6 +30,7 @@ final class CurrentWeatherView: UIView {
         collectionView.register(DailyWeatherCollectionViewCell.self,
                                 forCellWithReuseIdentifier: DailyWeatherCollectionViewCell.cellIdentifier)
         collectionView.dataSource = self
+        collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
     
@@ -85,10 +86,11 @@ final class CurrentWeatherView: UIView {
                                   heightDimension: .absolute(150)),
                 subitems: [item]
             )
-            group.contentInsets = .init(top: 1, leading: 2, bottom: 1, trailing: 2)
+            group.contentInsets = .init(top: 1, leading: 4, bottom: 1, trailing: 4)
             
             let section =  NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
+            section.contentInsets = .init(top: 0, leading: 4, bottom: 0, trailing: 4)
             return section
         case .daily:
             let item = NSCollectionLayoutItem(layoutSize: .init(

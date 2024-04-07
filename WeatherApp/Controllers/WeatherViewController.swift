@@ -22,6 +22,8 @@ final class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Weather"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         view.backgroundColor = .systemBackground
         setUpView()
         setUpLocation()

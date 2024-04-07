@@ -87,14 +87,49 @@ final class WeatherViewModel {
 // MARK: - Transform Methods
 private extension WeatherViewModel {
     func transformToCurrentWeatherModel(from model: CurrentWeather) -> CurrentWeatherCollectionViewCell.ViewModel {
-        .init()
+        .init(condition: model.condition.description,
+              temperature: "\(Int(model.temperature.converted(to: .fahrenheit).value)) °F",
+              iconName: model.symbolName)
     }
     
     func transformToHourlyWeatherModel(from model: [HourWeather]) -> [HourlyWeatherCollectionViewCell.ViewModel] {
-        model.map { _ in .init() }
+        model.map { item in .init(
+            iconName: item.symbolName,
+            temperature: "\(Int(item.temperature.converted(to: .fahrenheit).value)) °F",
+            hour: "\(Calendar.current.component(.hour, from: item.date)):00")
+        }
     }
     
     func transformToDailyWeatherModel(from model: [DayWeather]) -> [DailyWeatherCollectionViewCell.ViewModel] {
-        model.map { _ in .init() }
+        func string(for temp: Measurement<UnitTemperature>) -> String {
+            return "\(Int(temp.converted(to: .fahrenheit).value)) °F"
+        }
+        
+        func string(from day: Int) -> String {
+            switch (day) {
+            case 1:
+                return "Monday"
+            case 2:
+                return "Tuesday"
+            case 3:
+                return "Wednesday"
+            case 4:
+                return "Thursday"
+            case 5:
+                return "Friday"
+            case 6:
+                return "Saturday"
+            case 7:
+                return "Sunday"
+            default:
+                return "Unavailable"
+            }
+        }
+        
+        return model.map { item in .init(
+            iconName: item.symbolName,
+            temperatureRange: "\(string(for: item.lowTemperature)) ~ \(string(for: item.highTemperature))",
+            day: string(from: Calendar.current.component(.weekday, from: item.date)))
+        }
     }
 }
