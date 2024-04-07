@@ -17,10 +17,10 @@ protocol SettingsViewDelegate: NSObject {
 }
 
 final class SettingsView: UIView {
-    
+    private let kCellIDENTIFIER = SettingsView.description()
     lazy var tableView: UITableView = {
        let tV = UITableView()
-        tV.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tV.register(UITableViewCell.self, forCellReuseIdentifier: kCellIDENTIFIER)
         tV.translatesAutoresizingMaskIntoConstraints = false
         tV.dataSource = self
         tV.delegate = self
@@ -59,7 +59,7 @@ extension SettingsView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: kCellIDENTIFIER, for: indexPath)
         cell.textLabel?.text = dataSource?.content(of: indexPath)
         return cell
     }
