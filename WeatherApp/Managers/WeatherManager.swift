@@ -13,4 +13,8 @@ final class WeatherManager {
     static let shared = WeatherManager()
     
     private init() { }
+    
+    func getWeather(for location: CLLocation) {
+        
+    }
 }

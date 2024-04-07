@@ -19,5 +19,9 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSLocationUsageDescription</key>
+	<string>Location Description</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need this permission to show weather update of your current location</string>
 </dict>
 </plist>
