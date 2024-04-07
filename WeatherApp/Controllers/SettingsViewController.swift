@@ -9,9 +9,14 @@ import UIKit
 
 final class SettingsViewController: UIViewController {
     
-    private let settingsView: SettingsView = {
+    private lazy var viewModel: SettingsViewModel = {
+       return SettingsViewModel()
+    }()
+    
+    private lazy var settingsView: SettingsView = {
         let settingView = SettingsView()
-        settingView.translatesAutoresizingMaskIntoConstraints = false
+        settingView.delegate = self
+        settingView.dataSource = self
         return settingView
     }()
     
@@ -22,6 +27,7 @@ final class SettingsViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         setUpView()
+        initializeViewModel()
     }
     
     private func setUpView() {
@@ -33,5 +39,25 @@ final class SettingsViewController: UIViewController {
             settingsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             settingsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
+    }
+    
+    //MARK: - Configuration Methods
+    private func initializeViewModel() { }
+}
+
+// MARK: - SettingsView Methods
+extension SettingsViewController: SettingsViewDataSource {
+    func numberOfRows() -> Int {
+        viewModel.numberOfOptions()
+    }
+    
+    func content(of indexPath: IndexPath) -> String? {
+        viewModel.contentOfOptions(at: indexPath.row)
+    }
+}
+
+extension SettingsViewController: SettingsViewDelegate {
+    func didTapOptin(_ view: UIView, at indexPath: IndexPath) {
+        viewModel.optionDidSeleted(at: indexPath)
     }
 }
