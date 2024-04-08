@@ -103,7 +103,7 @@ final class CurrentWeatherView: UIView {
                                   heightDimension: .absolute(100)),
                 subitems: [item]
             )
-            group.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
+            group.contentInsets = .init(top: 2, leading: 4, bottom: 2, trailing: 4)
             
             return NSCollectionLayoutSection(group: group)
         }
